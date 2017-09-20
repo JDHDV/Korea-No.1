@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+
+		<meta charset="utf-8" />
+
+		<link rel="stylesheet" href="css/base.css" />
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/iview.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="js/raphael-min.js"></script>
+		<script type="text/javascript" src="js/jquery.easing.js"></script>
+		<script type="text/javascript" src="js/jquery.scrollUp.js"></script>
+		<script src="js/iview.js"></script>
+		<script>
+			$(function() {
+
+				//轮播图
+				$(document).ready(function() {
+					$('#iview').iView({
+						pauseTime: 3000, //暂停时间
+						directionNav: false, //是否显示方向导航
+						controlNav: true, //是否显示控制导航
+						tooltipY: -15 //工具提示
+					});
+				});
+
+				//关闭顶部广告
+				$(".btn-close").click(function() {
+					$(".top-ad").hide();
+					$(".wing").css({
+						"position": "absolute",
+						"top": "220px"
+					});
+				});
+
+				//点击“全部商品类目”，向下滑出类目列表框
+				$(".allitemstype").click(function() {
+					$(".all-items-type").slideToggle();
+					$(".all").css("background-position", "-19px -176px");
+				});
+
+				//模态框占满整个页面
+				$(".mask").css("height", $("body").css("height"));
+				//点击顶部导航栏最右侧，模态框显示
+				$(".btn-cny").click(function() {
+					$(".mask-box").show();
+				});
+				$(".send-country-address").click(function() {
+					$(".mask-box").show();
+				});
+				//点击”打叉“按钮，关闭模态框
+				$(".close").click(function() {
+					$(".mask-box").hide();
+				});
+				//点击语言，显示左右边框，字体颜色改变
+				$(".language-choose a").click(function() {
+					$(this).addClass("current").siblings().removeClass("current");
+				});
+				//点击模态框中币种、国家类型，被点击的li显示边框,相关地方显示被选中的标签的内容
+				$(".moneytype-choose li").click(function() {
+					$(this).addClass("current").siblings().removeClass("current");
+					var text = $(this).text();
+					$(".country-add").html(text);
+					//点击“保存”按钮，模态框隐藏，显示选中的信息
+					$(".btn-ok").click(function() {
+						$(".mask-box").hide();
+						$(".add").html(text);
+					});
+				});
+				$(".choose-country li").click(function() {
+					$(".send-country-choose input").val($(this).html());
+					$(".send-country-choose-info u").html($(this).html());
+					$(".send-country-address").html($(this).html());
+					$(".choose-country").hide();
+				});
+				//点击输入框，下拉列表显示
+				$(".send-country-choose input").click(function() {
+					$(".choose-country").show();
+				});
+				$(".send-country-choose span").click(function() {
+						$(".choose-country").show();
+					})
+					//点击”取消啊“按钮，模态框隐藏
+				$(".btn-cancle").click(function() {
+					$(".mask-box").hide();
+				});
+
+				//返回顶部、底部
+				var speed = 800; //滚动速度
+				var h = document.body.clientHeight;
+				//回到顶部
+				$(".toTop").click(function() {
+					$('html,body').animate({
+						scrollTop: '0px'
+					}, speed);
+				});
+				//回到底部
+				var windowHeight = parseInt($("body").css("height")); //整个页面的高度
+				$(".toBottom").click(function() {
+					$('html,body').animate({
+						scrollTop: h + 'px'
+					}, speed);
+				});
+
+				//固定导航栏，鼠标悬停，显示相应信息
+				function mousehover(obj, text, cssjson) {
+					$(obj).hover(function() {
+						$(this).html(text);
+						$(this).css({
+							"background": "none",
+							"width": "50px"
+						});
+					}, function() {
+						$(this).html("");
+						$(this).css(cssjson);
+					});
+				}
+				mousehover($(".bag"), "购物车", {
+					"background": "url(img/common2.png)  no-repeat -395px -21px",
+					"width": "30px"
+				});
+				mousehover($(".heart"), "关注商品", {
+					"background": "url(img/common2.png)  no-repeat -424px -21px",
+					"width": "30px"
+				});
+				mousehover($(".hand"), "MD's Pick", {
+					"background": "url(img/common2.png)  no-repeat -533px -21px",
+					"width": "30px"
+				});
+				mousehover($(".fly"), "配送费指南", {
+					"background": "url(img/common2.png)  no-repeat  -486px -21px",
+					"width": "30px"
+				});
+				mousehover($(".phone"), "手机", {
+					"background": "url(img/common2.png)  no-repeat  -510px -21px",
+					"width": "30px"
+				});
+				//向后查看图片
+				$(".next").click(function() {
+					$(".best-sale-slider").animate({
+						left: "-1200px"
+					}, 1000)
+				});
+				//向前查看图片
+				$(".pev").click(function() {
+					$(".best-sale-slider").animate({
+						left: "+0px"
+					}, 1000)
+				})
+
+				//点击“查看更多”按钮，显示更多商品信息
+				$(".product-bottom").click(function() {
+					$(this).hide();
+					$(".product-more").show();
+				});
+
+				//点击顶部语言选择，显示左右边框，字体颜色改变
+				$(".language a").click(function() {
+					$(this).addClass("current");
+					$(this).siblings().removeClass("current");
+				});
+
+				//小型轮播图，点击向上查看
+				$(".left").click(function() {
+						$(".small-items").animate({
+							top: "+0px"
+						}, 1000);
+						$(".page").html("1");
+					})
+					//点击向下查看
+				$(".right").click(function() {
+					$(".small-items").animate({
+						top: "-230px"
+					}, 1000);
+					$(".page").html("2");
+				});
+
+				//滚动条滚动到一定高度，固定导航栏固定在顶部
+				$(window).scroll(function() {
+					var scrolltop = $(window).scrollTop();
+					if ($(".top-ad").css("display") == "block") {
+						if (scrolltop >= 305) {
+							$(".wing").css({
+								"position": "fixed",
+								"top": "0px"
+							});
+						} else {
+							$(".wing").css({
+								"position": "absolute",
+								"top": "305px"
+							});
+						}
+					} else {
+						if (scrolltop >= 220) {
+							$(".wing").css({
+								"position": "fixed",
+								"top": "0px"
+							});
+						} else {
+							$(".wing").css({
+								"position": "absolute",
+								"top": "220px"
+							});
+						}
+					}
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<!--顶部广告-->
+		<div class="box">
+			<div class="top-ad">
+				<img src="img/top-ad.jpg" />
+				<span class="btn-close"></span>
+			</div>
+
+			<!--顶部导航栏-->
+			<div class="top">
+				<div class="topbox w">
+					<div class="language fl">
+						<a href="javascript:;" class="current">汉语</a>
+						<!-- c-->
+						<a href="javascript:;">英语</a>
+						<a href="javascript:;">韩语</a>
+					</div>
+					<div class="top-r fr">
+						<ul>
+							<li class="login">
+								<a href="javascript:;">
+									<span>您好！<u>登录</u></span>或
+									<span><u>加入会员</u></span>
+								</a>
+							</li>
+							<li><a href="javascript:;">帮助</a></li>
+							<li><a href="javascript:;">购物车</a></li>
+							<li><a href="javascript:;">关注商品</a></li>
+							<li><a href="javascript:;">
+						在线咨询
+						<i class="chat"></i>
+					</a></li>
+							<li><a href="javascript:;">我的购物信息</a></li>
+							<li class="send-country"><a href="javascript:;">
+						基本配送国家 <span class="send-country-address">South Korea</span>
+						<i class="flag"></i>
+					</a></li>
+							<li>
+								<a href="javascript:;" class="btn-cny">
+									<span class="add">￥CNY</span>
+									<i class="icon"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!--模态框-->
+			<div class="mask-box">
+				<div class="mask"></div>
+				<div class="language-type">
+					<h4>请设置您的购物环境 <span class="fr close"></span></h4>
+					<div class="language-choose">
+						<h5><i></i>请选择您的语言</h5>
+						<a href="javascript:;">English</a>
+						<a href="javascript:;" class="current">中文简体</a>
+					</div>
+					<div class="moneytype-choose">
+						<h5><i></i>请选择您的币种</h5>
+						<ul>
+							<li><a href="javascript:;"><u></u>Dh<span>AED</span></a></li>
+							<li><a href="javascript:;"><u class="cny"></u>￥<span>CNY</span> </a></li>
+							<li class="current"><a href="javascript:;"><u class="jpy"></u>￥<span>JPY</span></a></li>
+							<li><a href="javascript:;"><u class="myr"></u>RM<span>MYR</span></a></li>
+							<li><a href="javascript:;"><u class="rub"></u>py6<span>RUB</span></a></li>
+							<li><a href="javascript:;"><u class="cny"></u>TL<span>TRY</span></a></li>
+							<li><a href="javascript:;"><u class="jpy"></u>A$<span>AUD</span></a></li>
+							<li><a href="javascript:;"><u class="rub"></u>Dh<span>EUR</span></a></li>
+							<li><a href="javascript:;"><u></u>KZT<span>KZT</span></a></li>
+							<li><a href="javascript:;"><u class="myr"></u>Nkr<span>NOK</span></a></li>
+							<li><a href="javascript:;"><u class="cny"></u>SR<span>SAR</span></a></li>
+							<li><a href="javascript:;"><u class="jpy"></u>NT$<span>TWD</span></a></li>
+						</ul>
+					</div>
+					<div class="send-country-choose">
+						<h5><i></i>请选择您的配送国家</h5>
+						<input type="text" placeholder="South Korea" readonly="readonly" /><span></span>
+						<div class="choose-country">
+							<ul>
+								<li>Chinese</li>
+								<li>Iran</li>
+								<li>Korea</li>
+								<li>Hong Kong</li>
+								<li>France</li>
+							</ul>
+						</div>
+					</div>
+					<div class="send-country-choose-info">
+						<span class="fl"><i></i>中文简体 | <b class="country-add">￥ Chinese Yuan CNY </b>| 基本配送国家 <u>Iran</u><i class="country"></i></span>
+						<span class="fr btn">
+						<a href="javascript:;" class="btn-ok">保存</a>
+						<a href="javascript:;" class="btn-cancle">取消</a>
+					</span>
+
+					</div>
+				</div>
+			</div>
+
+			<!--搜索框-->
+			<div class="header w clearfix">
+				<div class="logo fl"></div>
+				<div class="search fl">
+					<div class="input">
+						<input type="text" />
+					</div>
+					<div class="search-nav">
+						<a href="javascript:;">紧身裤</a>
+						<a href="javascript:;">jayjun</a>
+						<a href="javascript:;">IU</a>
+						<a href="javascript:;">锐步</a>
+						<a href="javascript:;">TAYO</a>
+						<a href="javascript:;">J SOOP</a>
+						<a href="javascript:;">搅拌机</a>
+					</div>
+				</div>
+				<div class="massage fr">
+					<a href="javascript:;"><img src="img/massage.jpg" /></a>
+				</div>
+			</div>
+
+			<!--菜单 导航栏-->
+			<div class="nav clearfix">
+				<div class="nav-list w">
+					<ul>
+						<li class="allitemstype">
+							<a href="javascript:;" class="all-product">全部商品类型</a>
+							<i class="all"></i>
+							<div class="all-items-type w clearfix">
+								<ul class="allitemlist fl">
+									<li class="title">
+										<strong>品牌服饰</strong>
+										<ul class="allitems">
+											<li>品牌女装</li>
+											<li>品牌男装</li>
+											<li>品牌牛仔/休闲装
+											</li>
+											<li>品牌童装</li>
+											<li>品牌鞋类/箱包</li>
+											<li>品牌首饰/手表</li>
+											<li>进口名牌</li>
+											<li>品牌户外服装</li>
+											<li>品牌运动服装</li>
+										</ul>
+									</li>
+									<li class="title">
+										<strong>服装</strong>
+										<ul class="allitems">
+											<li>女装</li>
+											<li>男装</li>
+											<li>内衣</li>
+											<li>童装</li>
+										</ul>
+									</li>
+									<li class="title">
+										<strong>品牌服饰</strong>
+										<ul class="allitems">
+											<li>品牌女装</li>
+											<li>品牌男装</li>
+											<li>品牌牛仔/休闲装</a>
+											</li>
+											<li>品牌童装</li>
+											<li>品牌鞋类/箱包</li>
+											<li>品牌首饰/手表</li>
+											<li>进口名牌</li>
+											<li>品牌户外服装</li>
+											<li>品牌运动服装</li>
+										</ul>
+									</li>
+									<li class="title">
+										<strong>服装</strong>
+										<ul class="allitems">
+											<li>女装</li>
+											<li>男装</li>
+											<li>内衣</li>
+											<li>童装</li>
+										</ul>
+									</li>
+									<li class="title">
+										<strong>品牌服饰</strong>
+										<ul class="allitems">
+											<li>品牌女装</li>
+											<li>品牌男装</li>
+											<li>品牌牛仔/休闲装</a>
+											</li>
+											<li>品牌童装</li>
+											<li>品牌鞋类/箱包</li>
+											<li>品牌首饰/手表</li>
+											<li>进口名牌</li>
+											<li>品牌户外服装</li>
+											<li>品牌运动服装</li>
+										</ul>
+									</li>
+									<li class="title">
+										<strong>服装</strong>
+										<ul class="allitems">
+											<li>女装</li>
+											<li>男装</li>
+											<li>内衣</li>
+											<li>童装</li>
+										</ul>
+									</li>
+
+								</ul>
+							</div>
+						</li>
+						<li><a href="javascript:;">热销商品</a></li>
+						<li><a href="javascript:;">超级特价</a></li>
+						<li><a href="javascript:;">会员优惠券专区</a></li>
+						<li><a href="javascript:;">活动优惠券专区</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- main-->
+			<div class="main w">
+				<div class="product-list fl">
+					<ul>
+						<li>
+							<a href="javascript:;" class="brand-cloth">品牌服饰</a>
+						</li>
+						<li><a href="javascript:;" class="m2">服装</a></li>
+						<li><a href="javascript:;" class="m3">配饰/鞋类</a></li>
+						<li><a href="javascript:;" class="m4">美妆/护发</a></li>
+						<li><a href="javascript:;" class="m5">母婴/儿童</a></li>
+						<li><a href="javascript:;" class="m6">食品</a></li>
+						<li><a href="javascript:;" class="m7">生活日用</a></li>
+						<li><a href="javascript:;" class="m8">家居家纺/厨具</a></li>
+						<li><a href="javascript:;" class="m9">运动/户外</a></li>
+						<li><a href="javascript:;" class="m10">医疗/保健</a></li>
+						<li><a href="javascript:;" class="m11">爱好/音乐</a></li>
+						<li><a href="javascript:;" class="m12">家电/汽车</a></li>
+						<li><a href="javascript:;" class="m13">电脑/数码</a></li>
+					</ul>
+				</div>
+
+				<!--轮播图-->
+				<div id="cont" class="fl">
+					<div class="container">
+						<div id="iview">
+							<div data-iview:image="img/slider-img/slider1.jpg" data-iview:transition="slice-top-fade,slice-right-fade"></div>
+							<div data-iview:image="img/slider-img/slider2.jpg" data-iview:transition="zigzag-drop-top,zigzag-drop-bottom" data-iview:pausetime="3000"></div>
+							<div data-iview:image="img/slider-img/slider4.jpg" data-iview:type="video" data-iview:transition="strip-right-fade,strip-left-fade">
+							</div>
+
+							<div data-iview:image="img/slider-img/slider5.jpg">
+							</div>
+
+							<div data-iview:image="img/slider-img/slider6.jpg">
+							</div>
+
+							<div data-iview:image="img/slider-img/slider7.jpg">
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--右部 竖型固定导航栏-->
+				<div class="wing fr">
+					<ul>
+						<li>
+							<a href="javascript:;" class="bag"></a>
+						</li>
+						<li>
+							<a href="javascript:;" class="heart"></a>
+						</li>
+						<li>
+							<a href="javascript:;" class="hand"></a>
+						</li>
+						<li class="small-slider">
+							<ul class="small-items" id="small-items">
+								<li>
+									<a href="javascript:;"><img src="img/small-slider-img/small-slider-img1.jpg" /></a>
+								</li>
+								<li>
+									<a href="javascript:;"><img src="img/small-slider-img/small-slider-img2.jpg" /></a>
+								</li>
+								<li>
+									<a href="javascript:;"><img src="img/small-slider-img/small-slider-img3.jpg" /></a>
+								</li>
+								<li>
+									<a href="javascript:;"><img src="img/small-slider-img/small-slider-img4.jpg" /></a>
+								</li>
+								<li>
+									<a href="javascript:;"><img src="img/small-slider-img/small-slider-img5.jpg" /></a>
+								</li>
+								<li>
+									<a href="javascript:;"><img src="img/small-slider-img/small-slider-img6.jpg" /></a>
+								</li>
+							</ul>
+							<div class="small-arrow clearfix">
+								<i class="fl left" id="left"></i>
+								<span><u class="page">1</u>/11</span>
+								<i class="right fr" id="right"></i>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:;" class="fly"></a>
+						</li>
+						<li>
+							<a href="javascript:;" class="phone"></a>
+						</li>
+						<li><a href="javascript:;" class="toTop">回顶部</a></li>
+						<li><a href="javascript:;" class="toBottom">到底部</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!--商品类型图片-->
+			<div class="small-banner w clearfix">
+				<div class="type1 fl">
+					<a href="javascript:;"><img src="img/banner/activity-t.jpg" /></a>
+					<a href="javascript:;"><img src="img/banner/activity-b.jpg" /></a>
+				</div>
+				<div class="type2 fl">
+					<a href="javascript:;"><img src="img/banner/fashion.jpg" /></a>
+				</div>
+				<div class="type3 fl">
+					<a href="javascript:;"><img src="img/banner/hanju-t.jpg" /></a>
+					<a href="javascript:;"><img src="img/banner/life.jpg" /></a>
+				</div>
+				<div class="type4 fl">
+					<a href="javascript:;"><img src="img/banner/meizhuang.jpg" /></a>
+				</div>
+				<div class="type5 fr">
+					<a href="javascript:;"><img src="img/banner/one.jpg" /></a>
+					<a href="javascript:;"><img src="img/banner/3c.jpg" /></a>
+				</div>
+			</div>
+
+			<!--超级特价区头部-->
+			<div class="superdeal-title w clearfix">
+				<div class="superdeal-logo fl"></div>
+				<div class="superdel-nav fr">
+					<a href="javascript:;" class="fr"><span class="more">查看更多</span>></a>
+					<div class="sperdeal-navlist fr">
+						<ul class="fr">
+							<li><a href="javascript:;">服饰</a></li>
+							<li><a href="javascript:;">美妆</a></li>
+							<li><a href="javascript:;">运动</a></li>
+							<li><a href="javascript:;">生活</a></li>
+							<li><a href="javascript:;">食品</a></li>
+							<li><a href="javascript:;">母婴/儿童</a></li>
+							<li><a href="javascript:;">数码</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!--超级特价商品列表-->
+			<div class="superdeal-product w clearfix">
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img1.jpg" /></a>
+					<p><a href="javascript:;">[MISSHA] 中秋节礼品特惠展</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img2.jpg" /></a>
+					<p><a href="javascript:;">[SONYUNARA] 秋季女装</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img3.jpg" /></a>
+					<p><a href="javascript:;">防弹少年团 (BTS) - Love Yourself 承 Her (迷你5辑)套装</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img4.jpg" /></a>
+					<p><a href="javascript:;">CHEF TOPF LA ROSE 陶瓷涂层锅</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img5.jpg" /></a>
+					<p><a href="javascript:;">戴尔 灵越15 7567 I7+128SSD+1TB双显卡+GTX1050TI</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img6.jpg" /></a>
+					<p><a href="javascript:;">[Converse] 中秋节快乐！品牌特惠展</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img7.jpg" /></a>
+					<p><a href="javascript:;">[JELISPOON] 秋季童装</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img8.jpg" /></a>
+					<p><a href="javascript:;">韩国产大米/20kg/10kg</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img9.jpg" /></a>
+					<p><a href="javascript:;">[oligo jean] 女士牛仔裤</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+			</div>
+
+			<!--超级特价商品底部-->
+			<div class="product-bottom w clearfix">
+				<a href="javascript:;"></a>
+			</div>
+
+			<!--查看更多-->
+			<div class="product-more w clearfix">
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img1.jpg" /></a>
+					<p><a href="javascript:;">[MISSHA] 中秋节礼品特惠展</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img1.jpg" /></a>
+					<p><a href="javascript:;">[MISSHA] 中秋节礼品特惠展</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img1.jpg" /></a>
+					<p><a href="javascript:;">[MISSHA] 中秋节礼品特惠展</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img1.jpg" /></a>
+					<p><a href="javascript:;">[MISSHA] 中秋节礼品特惠展</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+				<div class="product">
+					<a href="javascript:;"><img src="img/superdeal-img/superdeal-img1.jpg" /></a>
+					<p><a href="javascript:;">[MISSHA] 中秋节礼品特惠展</a></p>
+					<div class="price">
+						<p>
+							<u class="fr"> ￦11,900</u>
+							<del class="fr">￦38,900</del>
+						</p>
+						<span class="fl">30%<i></i></span>
+
+						<u class="fr">￥70.22</u>
+					</div>
+				</div>
+			</div>
+
+			<!-- 热销商品区头部-->
+			<div class="best-sale-title w clearfix">
+				<div class="best-sale-logo fl"></div>
+				<div class="best-sale-nav fr">
+					<a href="javascript:;" class="fr"><span class="more">查看更多</span>></a>
+					<div class="best-sale-navlist fr">
+						<ul class="fr">
+							<li><a href="javascript:;">全部</a></li>
+							<li><a href="javascript:;">服饰</a></li>
+							<li><a href="javascript:;">美妆</a></li>
+							<li><a href="javascript:;">运动</a></li>
+							<li><a href="javascript:;">生活</a></li>
+							<li><a href="javascript:;">食品</a></li>
+							<li><a href="javascript:;">母婴/儿童</a></li>
+							<li><a href="javascript:;">数码</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!--热销商品轮播图-->
+			<div class="best-sale-banner w">
+				<div class="best-sale-slider">
+					<ul id="best-sale-slider">
+						<li>
+							<i></i>
+							<a href="javascript:;"><img src="img/bestsale-img/bestsale-img1.jpg" /></a>
+							<div class="best-saleitem-price">
+								<p>
+									<a href="javascript:;">
+									PUMA 362223 05 绒面 厚底 彪马 Rihanna Creeper 男女同款
+								</a>
+								</p>
+								<span>
+									<del>￦109,000</del>
+									<b>10%</b><u class="down-icon"></u>
+								</span>
+								<span class="strong">￦98,100</span>
+								<span>(￥ 578.97)</span>
+
+							</div>
+						</li>
+						<li>
+							<i class="two"></i>
+							<a href="javascript:;"><img src="img/bestsale-img/bestsale-img2.jpg" /></a>
+							<div class="best-saleitem-price">
+								<p>
+									<a href="javascript:;">
+									阿迪达斯 人气鞋 12种 选一 M20324 M20325
+								</a>
+								</p>
+								<span>
+									<del>￦109,000</del>
+									<b>10%</b><u class="down-icon"></u>
+								</span>
+								<span class="strong">￦98,100</span>
+								<span>(￥ 578.97)</span>
+
+							</div>
+						</li>
+						<li>
+							<i class="three"></i>
+							<a href="javascript:;"><img src="img/bestsale-img/bestsale-img3.jpg" /></a>
+							<div class="best-saleitem-price">
+								<p>
+									<a href="javascript:;">
+									(现代Hmall)[匡威] Chuck Taylor All Star 70s 高帮 黑色 142334C
+								</a>
+								</p>
+								<span>
+									<del>￦109,000</del>
+									<b>10%</b><u class="down-icon"></u>
+								</span>
+								<span class="strong">￦98,100</span>
+								<span>(￥ 578.97)</span>
+
+							</div>
+						</li>
+						<li>
+							<i class="four"></i>
+							<a href="javascript:;"><img src="img/bestsale-img/bestsale-img4.jpg" /></a>
+							<div class="best-saleitem-price">
+								<p>
+									<a href="javascript:;">
+									防弹少年团 (BTS) - Love Yourself 承 Her (迷你5辑)套装(专辑4种+4种海报+海报筒)_9/18
+								</a>
+								</p>
+								<span>
+									<del>￦109,000</del>
+									<b>10%</b><u class="down-icon"></u>
+								</span>
+								<span class="strong">￦98,100</span>
+								<span>(￥ 578.97)</span>
+
+							</div>
+						</li>
+						<li>
+							<i class="five"></i>
+							<a href="javascript:;"><img src="img/bestsale-img/bestsale-img5.jpg" /></a>
+							<div class="best-saleitem-price">
+								<p>
+									<a href="javascript:;">
+									PETiTEmieux/秋季新款 连衣裙 打底裤 上下装
+								</a>
+								</p>
+								<span>
+									<del>￦109,000</del>
+									<b>10%</b><u class="down-icon"></u>
+								</span>
+								<span class="strong">￦98,100</span>
+								<span>(￥ 578.97)</span>
+
+							</div>
+						</li>
+						<li>
+							<i class="five"></i>
+							<a href="javascript:;"><img src="img/bestsale-img/bestsale-img6.jpg" /></a>
+							<div class="best-saleitem-price">
+								<p>
+									<a href="javascript:;">
+									PETiTEmieux/秋季新款 连衣裙 打底裤 上下装
+								</a>
+								</p>
+								<span>
+									<del>￦109,000</del>
+									<b>10%</b><u class="down-icon"></u>
+								</span>
+								<span class="strong">￦98,100</span>
+								<span>(￥ 578.97)</span>
+
+							</div>
+						</li>
+						<li>
+							<i class="five"></i>
+							<a href="javascript:;"><img src="img/bestsale-img/bestsale-img7.jpg" /></a>
+							<div class="best-saleitem-price">
+								<p>
+									<a href="javascript:;">
+									PETiTEmieux/秋季新款 连衣裙 打底裤 上下装
+								</a>
+								</p>
+								<span>
+									<del>￦109,000</del>
+									<b>10%</b><u class="down-icon"></u>
+								</span>
+								<span class="strong">￦98,100</span>
+								<span>(￥ 578.97)</span>
+
+							</div>
+						</li>
+						<li>
+							<i class="five"></i>
+							<a href="javascript:;"><img src="img/bestsale-img/bestsale-img8.jpg" /></a>
+							<div class="best-saleitem-price">
+								<p>
+									<a href="javascript:;">
+									PETiTEmieux/秋季新款 连衣裙 打底裤 上下装
+								</a>
+								</p>
+								<span>
+									<del>￦109,000</del>
+									<b>10%</b><u class="down-icon"></u>
+								</span>
+								<span class="strong">￦98,100</span>
+								<span>(￥ 578.97)</span>
+
+							</div>
+						</li>
+						<li>
+							<i class="five"></i>
+							<a href="javascript:;"><img src="img/bestsale-img/bestsale-img9.jpg" /></a>
+							<div class="best-saleitem-price">
+								<p>
+									<a href="javascript:;">
+									PETiTEmieux/秋季新款 连衣裙 打底裤 上下装
+								</a>
+								</p>
+								<span>
+									<del>￦109,000</del>
+									<b>10%</b><u class="down-icon"></u>
+								</span>
+								<span class="strong">￦98,100</span>
+								<span>(￥ 578.97)</span>
+
+							</div>
+						</li>
+						<li>
+							<i class="five"></i>
+							<a href="javascript:;"><img src="img/bestsale-img/bestsale-img10.jpg" /></a>
+							<div class="best-saleitem-price">
+								<p>
+									<a href="javascript:;">
+									PETiTEmieux/秋季新款 连衣裙 打底裤 上下装
+								</a>
+								</p>
+								<span>
+									<del>￦109,000</del>
+									<b>10%</b><u class="down-icon"></u>
+								</span>
+								<span class="strong">￦98,100</span>
+								<span>(￥ 578.97)</span>
+
+							</div>
+						</li>
+					</ul>
+
+				</div>
+				<div class="control w">
+					<span class="fl pev"></span>
+					<span class="fr next"></span>
+				</div>
+			</div>
+
+			<!--热销品牌头部-->
+			<div class="hot-sale-title w">
+				<div class="hot-sale-logo fl"></div>
+				<div class="best-sale-nav fr">
+					<a href="javascript:;"><span class="more fr">查看更多></span></a>
+					<div class="hot-sale-navlist fr">
+						<ul class="fr">
+							<li><a href="javascript:;">精选</a></li>
+							<li><a href="javascript:;">服饰</a></li>
+							<li><a href="javascript:;">美妆</a></li>
+							<li><a href="javascript:;">运动</a></li>
+							<li><a href="javascript:;">生活</a></li>
+							<li><a href="javascript:;">食品</a></li>
+							<li><a href="javascript:;">母婴/儿童</a></li>
+							<li><a href="javascript:;">数码</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<!--热销品牌商品列表-->
+			<div class="hot-sale-items w">
+				<div class="adidas fl">
+					<a href="javascript:;"><img src="img/hot-sale-brand/adidas.jpg" /></a>
+				</div>
+				<div class="brand fl">
+					<ul>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/converse.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/nike.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/vans.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/keds.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/thumb.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/lazy.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/kapps.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/tesla.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/pumr.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/skono.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/fila.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/nepa.jpg" /></a>
+						</li>
+					</ul>
+				</div>
+				<div class="sport fl">
+					<a href="javascript:;">
+						<img src="img/hot-sale-brand/sport.jpg" />
+					</a>
+				</div>
+
+				<div class="hot-sale-items w">
+					<ul class="brand-list">
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/converse.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/nike.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/vans.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/keds.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/thumb.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/lazy.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/kapps.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/tesla.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/pumr.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/skono.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/fila.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/nepa.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/nike.jpg" /></a>
+						</li>
+						<li>
+							<a href="javascript:;"><img src="img/hot-sale-brand/vans.jpg" /></a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="hot-sale-items w clearfix">
+					<div class="adidas fl">
+						<a href="javascript:;"><img src="img/hot-sale-brand/adidas.jpg" /></a>
+					</div>
+					<div class="brand fl">
+						<ul>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/converse.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/nike.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/vans.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/keds.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/thumb.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/lazy.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/kapps.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/tesla.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/pumr.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/skono.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/fila.jpg" /></a>
+							</li>
+							<li>
+								<a href="javascript:;"><img src="img/hot-sale-brand/nepa.jpg" /></a>
+							</li>
+						</ul>
+					</div>
+					<div class="sport fl skechers">
+						<a href="javascript:;">
+							<img src="img/hot-sale-brand/Skechers.jpg" />
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!--页面底部-->
+			<div class="footer clearfix">
+				<div class="about w">
+					<ul>
+						<li><a href="javascript:;">关于Gmarket</a></li>
+						<li><a href="javascript:;">用户协议</a></li>
+						<li><a href="javascript:;">隐私政策</a></li>
+						<li><a href="javascript:;">网站地图</a></li>
+						<li><a href="javascript:;">客服中心</a></li>
+						<li><a href="javascript:;"><i></i>微博</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!--底部版权信息-->
+			<div class="copyright w clearfix">
+				<p class="fl">
+					客服中心
+					<span>电子金融纠纷处理</span>
+					<span>eBay Korea Co., Ltd</span>
+				</p>
+				<p class="fl">
+					京畿道 富川市 远美区 上洞 461 Toona 6楼 | 咨询客服 :1:1 电子邮件咨询
+					<span>电话 +82-2-1566-5701(韓语) | 传真 +82-2-589-8844 (韓语) | 电子邮件 : cn_global@corp.gmarket.co.kr</span>
+					<span>首尔市 江南区 德黑兰路 152 江南金融中心 34F | 韩国区经理 : 卞光允 |</span>
+					<span>营业执照号码 : 220-81-83676 | 通信销售业申报: Gangnam - 10630</span>
+					<span>Gmarket只是提供网上交易的平台.并非商品的直销商，网上的商品是由个人卖家上传到平台销售，因此对在线销售的商品不承担任何责任。</span>
+					<span>Copyright&copy;eBay Korea Co., Ltd. All rights reserved.</span>
+				</p>
+				<p class="fr bottom-logo"></p>
+			</div>
+
+		</div>
+		<script type="text/javascript" src="js/jquery.fullscreen.js"></script>
+	</body>
+
+</html>

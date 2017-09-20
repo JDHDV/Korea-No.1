@@ -1,0 +1,54 @@
+html,body,div,h1,h2,h3,h4,h5,h6,input,p,span,dt,dl,dd,ol,ul,li,button,a,form{
+    margin: 0;
+    padding: 0;
+}
+i,s,b,u{
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: normal;
+    font-style: normal;
+}
+input,textarea,form,button{
+    border:0;
+    resize:none;
+    outline-style: none;
+}
+ul,li{
+    list-style: none;
+}
+table{
+    border-collapse: collapse;
+}
+img{
+    border:0;
+    vertical-align: middle;
+}
+a{
+	color: #333;
+	font-size: 12px;
+	text-decoration: none;
+}
+a:hover{
+	color: #6495ED;
+}
+.clearfix::before,.clearfix::after,br{
+    content:"";
+    display: block;
+    clear:both;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+.clearfix{
+    zoom:1;
+}
+.fr{
+    float: right;
+}
+.fl{
+    float: left;
+}
+.w{
+	width: 1200px;
+	margin: 0 auto;
+}
